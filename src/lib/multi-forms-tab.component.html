@@ -1,0 +1,68 @@
+<div class="{{ isCard ? 'card' : '' }} mb-5">
+    <div class="card-header">
+      <ul class="nav nav-justified" *ngIf="titles && titles.length > 0">
+        <!---->
+        <li
+          *ngFor="let title of titles; index as i"
+          class="nav-item {{ navItem === i ? 'active' : '' }} {{
+            tabsEnabled > i ? 'enabled' : 'disabled'
+          }}"
+          (click)="changeTab(i)"
+        >
+          <a>{{ title }}</a>
+        </li>
+      </ul>
+    </div>
+    <div class="card-block p-4">
+      <ngb-alert
+        type="danger"
+        class="alert-card alert"
+        *ngIf="showAlert"
+        (close)="showAlert = false"
+        >{{ alertMessage }}</ngb-alert
+      >
+      <div [hidden]="navItem !== 0">
+        <ng-content select="[form-1]"></ng-content>
+      </div>
+      <div [hidden]="navItem !== 1">
+        <ng-content select="[form-2]"></ng-content>
+      </div>
+      <div [hidden]="navItem !== 2">
+        <ng-content select="[form-3]"></ng-content>
+      </div>
+      <div [hidden]="navItem !== 3">
+        <ng-content select="[form-4]"></ng-content>
+      </div>
+      <div [hidden]="navItem !== 4">
+        <ng-content select="[form-5]"></ng-content>
+      </div>
+    </div>
+    <div class="card-footer" *ngIf="hasFooter">
+      <button
+        class="btn btn-rounded btn-secondary float-left"
+        type="button"
+        (click)="previousTab()"
+        [hidden]="this.navItem === 0"
+      >
+        Anterior</button
+      ><button
+        class="btn btn-rounded btn-secondary float-right"
+        type="button"
+        (click)="nextTabClicked.next(); nextTab();"
+        [hidden]="this.navItem === this.numTabs - 1"
+      >
+        Proximo</button
+      ><button
+        class="btn btn-rounded btn-secondary float-right"
+        type="button"
+        *ngIf="hasSaveBtn"
+        [hidden]="this.navItem !== this.numTabs - 1"
+        (click)="onSave()"
+        [disabled]="loading"
+      >
+        <span *ngIf="!loading">Salvar</span>
+        <span *ngIf="loading">carregando...</span>
+      </button>
+    </div>
+  </div>
+  
