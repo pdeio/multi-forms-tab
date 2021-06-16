@@ -18,6 +18,8 @@ export class MultiFormsTabComponent implements OnInit, OnChanges {
   @Input() titles: string[];
   @Input() hasFooter = true;
   @Input() hasSaveBtn = true;
+  @Input() saveBtnLabel = 'Salvar';
+  @Input() hideNavigationBtns = false;
   @Input() nextEnabled = true;
   @Input() tabsEnabled = 1;
   @Input() nextTabOnClick = true;
